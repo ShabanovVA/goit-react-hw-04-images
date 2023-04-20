@@ -1,15 +1,13 @@
-import { Component } from "react";
 import PropTypes from "prop-types";
 import Modal from "../Modal/Modal";
 import { ImageItem, Image, ImageModal } from "./ImageGalleryItem.styled";
+import { useState } from "react";
 
-export default class ImageGalleryItem extends Component {
-  state = {
-    showModal: false,
-  };
+export default function ImageGalleryItem({webformatURL, tags, largeImageURL}) {
+    const [showModal, setShowModal] = useState(false);
 
-  toggleModal = () => {
-    this.setState((prev) => ({ showModal: !prev.showModal }));
+  const toggleModal = () => {
+    setShowModal(!showModal);
 
     if ({ showModal: true }) {
       const scrollY = document.body.style.top;
@@ -19,23 +17,21 @@ export default class ImageGalleryItem extends Component {
     }
   };
 
-  render() {
     return (
       <ImageItem>
         <Image
-          src={this.props.webformatURL}
-          alt={this.props.tags}
-          onClick={this.toggleModal}
+          src={webformatURL}
+          alt={tags}
+          onClick={toggleModal}
         />
-        {this.state.showModal && (
-          <Modal onModalClick={this.toggleModal}>
-            <ImageModal src={this.props.largeImageURL} alt={this.props.tags} />
+        {showModal && (
+          <Modal onModalClick={toggleModal}>
+            <ImageModal src={largeImageURL} alt={tags} />
           </Modal>
         )}
       </ImageItem>
     );
   }
-}
 
 ImageGalleryItem.propTypes = {
   webformatURL: PropTypes.string.isRequired,

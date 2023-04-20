@@ -1,8 +1,6 @@
-import { Component } from "react"
 import { MagnifyingGlass } from 'react-loader-spinner'
 
-export class Loader extends Component {
-    render () {
+export function Loader () {
         return (
             <>
                 <MagnifyingGlass
@@ -17,4 +15,4 @@ export class Loader extends Component {
                 />
             </>
     )
-}}
+}

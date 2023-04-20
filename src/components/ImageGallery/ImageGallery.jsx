@@ -13,6 +13,7 @@ export const ImageGallery = ({ images }) => {
               webformatURL={webformatURL}
               tags={tags}
               largeImageURL={largeImageURL}
+              
             />
           ))}
         </GalleryList>

@@ -1,38 +1,36 @@
-import { Component } from "react";
 import { toast } from 'react-toastify';
 import { FcSearch } from "react-icons/fc";
 import 'react-toastify/dist/ReactToastify.css';
 import { SearchFormInput,SearchbarContainer,SearchForm ,SearchFormButton } from "./Searchbar.styled";
+import { useState } from 'react';
 
 
-export class Searchbar extends Component {
-    state = {
-        query: '',
-    }
+export function Searchbar({queryValue}) {
+  const [query, setQuery] = useState('')
 
-    onChange = e => {
-        this.setState({ query: e.target.value })
-    }
+  const onChange = e => {
+    setQuery(e.target.value)
+  };
 
-    handleSubmit = e => {
-      e.preventDefault();
+  const handleSubmit = e => {
+    e.preventDefault();
 
-      if (this.state.query.trim() === '') {
-        toast.warn('Please enter a search query');
-        return;
-      };
+    if (query.trim() === '') {
+      toast.warn('Please enter a search query');
+      return;
+    };
 
-      this.props.queryValue(this.state.query);
-      this.reset();
-      }
-    reset = () => {
-        this.setState({ query: '' })
+    queryValue(query);
+    reset();
+  }
+  
+    const reset = () => {
+      setQuery('')
     }
     
-    render() {
       return (
         <SearchbarContainer>
-          <SearchForm onSubmit={this.handleSubmit}>
+          <SearchForm onSubmit={handleSubmit}>
             <SearchFormButton type="submit">
                 <FcSearch size={24} />
             </SearchFormButton>
@@ -43,11 +41,10 @@ export class Searchbar extends Component {
               autoFocus
               placeholder="Search images and photos"
               name="query"
-              value={this.state.query}
-              onChange={this.onChange}
+              value={query}
+              onChange={onChange}
             />
           </SearchForm>
         </SearchbarContainer>
       )
     }
-}
